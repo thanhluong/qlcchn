@@ -34,6 +34,49 @@ app.get('/', function(req, res) {
 	res.render('index');
 });
 
+app.post('/api/verify', urlencodedParser, async function(req, res) {
+	try {
+		// init
+		const ccp = buildCCPOrg1();
+		const caClient = buildCAClient(FabricCAServices, ccp, 'ca.org1.example.com');
+		const wallet = await buildWallet(Wallets, walletPath);
+
+		const gateway = new Gateway();
+
+		try {
+			await gateway.connect(ccp, {
+				wallet,
+				identity: org1UserId,
+				discovery: { enabled: true, asLocalhost: true } // using asLocalhost as this gateway is using a fabric network deployed locally
+			});
+
+			const network = await gateway.getNetwork(channelName);
+			const contract = network.getContract(chaincodeName);
+
+			console.log('Received verification request: ');
+			console.log('DegreeID =', req.body.degreeID);
+			console.log('InternID =', req.body.internID);
+			console.log('Owner =', req.body.owner);
+
+			try {
+				let result = await contract.evaluateTransaction('VerifyOC', req.body.degreeID, req.body.internID, req.body.owner);
+				console.log('Returned from smart contract:', result.toString());
+				if (result.toString() == 'true') res.send('valid');
+				else res.send('invalid');
+			} catch (err) {
+				console.log(err);
+				res.send('error');
+			};
+		} finally {
+			// close connections to the network
+			gateway.disconnect();
+		}
+
+	} catch (error) {
+		console.log(`FAILED to run: ${error}`);
+	}
+});
+
 app.get('/degrees', async function(req, res) {
 	try {
 		// init
