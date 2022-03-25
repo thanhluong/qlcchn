@@ -13,8 +13,8 @@ Quan Ly Chung Chi Hanh Nghe Bang Blockchain
 
 3. Run the application (from the `qlcchn` folder)
 
-```
-cd webapp
-npm install
-npm start
-```
+   ```
+   cd webapp
+   npm install
+   npm start
+   ```
