@@ -75,11 +75,11 @@ class CertManager extends Contract {
 
     // CreateDegree issues a new asset to the world state with given details.
     async CreateDegree(ctx, id, owner, university, issueddate) {
-        id = 'degree' + id;
         const exists = await this.DegreeExists(ctx, id);
         if (exists) {
             throw new Error(`The degree ${id} already exists`);
         }
+        id = 'degree' + id;
 
         const asset = {
             ID: id,
@@ -105,11 +105,11 @@ class CertManager extends Contract {
 
     // UpdateDegree updates an existing degree in the world state with provided parameters.
     async UpdateDegree(ctx, id, owner, university, issueddate) {
-        id = 'degree' + id;
-        const exists = await this.AssetExists(ctx, id);
+        const exists = await this.DegreeExists(ctx, id);
         if (!exists) {
             throw new Error(`The degree ${id} does not exist`);
         }
+        id = 'degree' + id;
 
         // overwriting original degree with new degree
         const updatedAsset = {
@@ -125,11 +125,11 @@ class CertManager extends Contract {
 
     // DeleteDegree deletes an given degree from the world state.
     async DeleteDegree(ctx, id) {
-        id = 'degree' + id;
-        const exists = await this.AssetExists(ctx, id);
+        const exists = await this.DegreeExists(ctx, id);
         if (!exists) {
             throw new Error(`The degree ${id} does not exist`);
         }
+        id = 'degree' + id;
         return ctx.stub.deleteState(id);
     }
 
@@ -163,11 +163,11 @@ class CertManager extends Contract {
 
     // CreateIntern issues a new asset to the world state with given details.
     async CreateIntern(ctx, id, owner, hospital, issueddate) {
-        id = 'intern' + id;
-        const exists = await this.DegreeExists(ctx, id);
+        const exists = await this.InternExists(ctx, id);
         if (exists) {
             throw new Error(`The intern ${id} already exists`);
         }
+        id = 'intern' + id;
 
         const asset = {
             ID: id,
@@ -193,11 +193,11 @@ class CertManager extends Contract {
 
     // UpdateIntern updates an existing degree in the world state with provided parameters.
     async UpdateIntern(ctx, id, owner, hospital, issueddate) {
-        id = 'intern' + id;
-        const exists = await this.AssetExists(ctx, id);
+        const exists = await this.InternExists(ctx, id);
         if (!exists) {
             throw new Error(`The intern ${id} does not exist`);
         }
+        id = 'intern' + id;
 
         // overwriting original intern with new degree
         const updatedAsset = {
@@ -213,11 +213,11 @@ class CertManager extends Contract {
 
     // DeleteIntern deletes an given degree from the world state.
     async DeleteIntern(ctx, id) {
-        id = 'intern' + id;
-        const exists = await this.AssetExists(ctx, id);
+        const exists = await this.InternExists(ctx, id);
         if (!exists) {
             throw new Error(`The intern ${id} does not exist`);
         }
+        id = 'intern' + id;
         return ctx.stub.deleteState(id);
     }
 
@@ -229,24 +229,24 @@ class CertManager extends Contract {
     }
 
     // verify Occupational Certificate - Only for So Y Te
-    async VerifyOC(ctx, degreeID, internID, owner) {
-        degreeID = 'degree' + degreeID;
-        internID = 'intern' + internID;
-        
-        const degreeExists = await this.AssetExists(ctx, degreeID);
+    async VerifyOC(ctx, degreeID, internID, owner) {        
+        const degreeExists = await this.DegreeExists(ctx, degreeID);
         if (!degreeExists) {
             throw new Error(`The degree ${degreeID} does not exist`);
         }
 
-        const internExists = await this.AssetExists(ctx, internID);
+        const internExists = await this.InternExists(ctx, internID);
         if (!internExists) {
             throw new Error(`The intern ${internID} does not exist`);
         }
 
+        degreeID = 'degree' + degreeID;
+        internID = 'intern' + internID;
+
         const degreeJSON = await ctx.stub.getState(degreeID);
         const internJSON = await ctx.stub.getState(internID);
 
-        return (degreeJSON['owner'] == internJSON['owner']);        
+        return (degreeJSON['owner'] == owner) && (degreeJSON['owner'] == internJSON['owner']);        
     }
 }
 
