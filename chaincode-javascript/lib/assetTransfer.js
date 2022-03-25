@@ -243,10 +243,13 @@ class CertManager extends Contract {
         degreeID = 'degree' + degreeID;
         internID = 'intern' + internID;
 
-        const degreeJSON = await ctx.stub.getState(degreeID);
-        const internJSON = await ctx.stub.getState(internID);
+        const degreeJSONStr = await ctx.stub.getState(degreeID);
+        const internJSONStr = await ctx.stub.getState(internID);
 
-        return (degreeJSON['owner'] == owner) && (degreeJSON['owner'] == internJSON['owner']);        
+        const degreeJSON = JSON.parse(degreeJSONStr.toString());
+        const internJSON = JSON.parse(internJSONStr.toString());
+
+        return (degreeJSON['Owner'] == owner) && (degreeJSON['Owner'] == internJSON['Owner']);        
     }
 }
 
