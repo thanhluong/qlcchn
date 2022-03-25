@@ -2,22 +2,29 @@ doctype html
 html
 	include head.pug
 	body
-		h2 Kiểm tra điều kiện cấp CCHN
-		p Thẩm định văn bằng Y Khoa và Chứng chỉ thực tập
+		div(class='form-box')
+			h2 Kiểm tra điều kiện cấp CCHN
+			p Thẩm định văn bằng Y Khoa và Chứng chỉ thực tập
 
-		hr
+			hr
 
-		div(class='form-group')
-			label(for='owner', class='required-field') ID người nộp hồ sơ
-			div(class='col-sm-3')
-				input(type='text', class='form-control', id='owner', aria-describedby='ownerInput', placeholder='Nhập họ và tên')
-		br
-		label(for='owner', class='required-field') ID của văn bằng và chứng chỉ thực tập
-		div(class='row')
-			div(class='form-group col-sm-3')
-				input(type='text', class='form-control', id='degree', aria-describedby='degreeInput', placeholder='Nhập ID văn bằng')
-			div(class='form-group col-sm-3')
-				input(type='text', class='form-control', id='intern', aria-describedby='internInput', placeholder='Nhập ID chứng chỉ thực tập')
+			div(class='form-group')
+				label(for='owner', class='required-field') ID người nộp hồ sơ
+				div(class='col-sm-3')
+					input(type='text', class='form-control', id='owner', aria-describedby='ownerInput', placeholder='Nhập họ và tên')
+			br
+			label(for='owner', class='required-field') ID của văn bằng và chứng chỉ thực tập
+			div(class='row')
+				div(class='form-group col-sm-3')
+					input(type='text', class='form-control', id='degree', aria-describedby='degreeInput', placeholder='Nhập ID văn bằng')
+				div(class='form-group col-sm-3')
+					input(type='text', class='form-control', id='intern', aria-describedby='internInput', placeholder='Nhập ID chứng chỉ thực tập')
+			br
+
+			hr
+
+			center
+				button(type='button', class='btn btn-success btn-lg') Thẩm định
 
 
 
