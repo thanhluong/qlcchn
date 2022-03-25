@@ -1,0 +1,8 @@
+doctype html
+html
+	include head.pug
+	body
+		h2 Ten sinh vien:
+		ul(class="list-group")
+			each item in degreeList
+				li(class="list-group-item") Ho va ten: #{item["Owner"]} tot nghiep truong: #{item["University"]}
