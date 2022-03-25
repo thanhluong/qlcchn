@@ -1,5 +1,6 @@
 $("#btn-verify").click(function() {
 	ownerName = $("#owner").val().trim();
+	if (ownerName.length == 0) return;
 	$.ajax({
 		method: 'POST',
 		url: '/api/verify',
