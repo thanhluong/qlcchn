@@ -16,5 +16,6 @@ Quan Ly Chung Chi Hanh Nghe Bang Blockchain
    ```
    cd webapp
    npm install
-   npm start
+   node init.js
+   node server.js
    ```

@@ -1,3 +1,10 @@
+.form-box {
+	width: 70em;
+	margin: auto;
+	padding: 2em;
+	border: 2px solid;
+}
+
 .required-field:after {
 	color: red;
 	content: "*";
