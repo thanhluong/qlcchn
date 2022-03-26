@@ -19,3 +19,17 @@ Quan Ly Chung Chi Hanh Nghe Bang Blockchain
    node init.js
    node server.js
    ```
+
+4. Access to a peer node
+
+   View all peers:
+
+   ```
+   docker ps
+   ```
+
+   Pick an ID, run:
+   ```
+   docker exec -it <ID> sh
+   cd /var/hyperledger/production
+   ```
