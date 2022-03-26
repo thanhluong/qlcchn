@@ -104,8 +104,8 @@ async function main() {
 			// Get the contract from the network.
 			const contract = network.getContract(chaincodeName);
 
-			console.log('\n--> Submit Transaction: CreateDegree, function creates the degree on the ledger');
-			let result = await contract.submitTransaction('CreateDegree', '005', 'Truc Mai', 'NBK', '2022-03-26');
+			console.log('\n--> Submit Transaction: DeleteDegree, function deletes the degree on the ledger');
+			let result = await contract.submitTransaction('DeleteDegree', '003'); 
 			if (`${result}` !== '') {
 				console.log(`*** Result: ${prettyJSONString(result.toString())}`);
 			}			
